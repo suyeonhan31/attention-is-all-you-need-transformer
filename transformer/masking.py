@@ -1,8 +1,5 @@
 import torch
 
-# Masks are boolean;True = "this query may attend to this key".
-# Shapes are (B, H, Lq, Lk) or anything that broadcasts to it.
-
 PAD_ID = 0
 NEG_INF = float("-inf")  #score val:maskedout positions before softmax
 
@@ -38,3 +35,6 @@ def shift_target(tokens: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
     if tokens.size(1) < 2:
         raise ValueError("Target sequences must contain at least a BOS and one token.")
     return tokens[:, :-1], tokens[:, 1:]
+
+#masks are boolean tensors
+#Shapes are (B, H, Lq, Lk) or anything that broadcasts to it
